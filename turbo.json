@@ -16,7 +16,7 @@
       "persistent": true
     },
     "prod": {
-      "cache": true,
+      "cache": false,
       "persistent": true
     }
   }
