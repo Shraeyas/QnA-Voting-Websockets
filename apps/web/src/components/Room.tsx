@@ -22,7 +22,7 @@ const Room = (props: RoomPropsInterface) => {
       socket.emit('joinRoom', roomId); 
     }
   }, [roomId, socket]);
-
+  
   return (
     <>
       <div className='max-w-6xl'>

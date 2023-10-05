@@ -15,8 +15,8 @@ export default function Home() {
   return (
     <>
       <form method='post'>
-        <input id={'typeRoom'} placeholder='Enter Room ID' name='room' ref={roomIdRef} />
-        <button id={'joinRoom'} type={'submit'} onClick={onSubmit}>Join</button>
+        <input className='m-3 p-3 rounded-md outline outline-2' id={'typeRoom'} placeholder='Enter Room ID' name='room' ref={roomIdRef} />
+        <button className='m-3 outline outline-2' id={'joinRoom'} type={'submit'} onClick={onSubmit}>Join</button>
       </form>
     </>
   );

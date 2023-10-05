@@ -17,8 +17,8 @@ function AddQuestion(props: AddQuestionInterface) {
         <>
             <form>
                 <div className='grid grid-cols-12'>
-                    <input className='col-span-9 m-3 p-3 rounded-md' id={'typeQuestion'} placeholder={ 'Type question' } ref={ questionTextRef }></input>
-                    <button className='col-span-3 m-3' id={'submitQuestion'} type='submit' onClick={ onSubmit }>Add question</button>
+                    <input className='col-span-9 m-3 p-3 rounded-md outline outline-2' id={'typeQuestion'} placeholder={ 'Type question' } ref={ questionTextRef }></input>
+                    <button className='col-span-3 m-3 outline outline-2' id={'submitQuestion'} type='submit' onClick={ onSubmit }>Add question</button>
                 </div>
             </form>
         </>
