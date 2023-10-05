@@ -10,6 +10,18 @@ services:
       - '5432:5432'
     volumes:
       - postgres_db:/var/lib/postgresql/data
+
+  nodejsapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgres://postgresuser:postgrespassword@postgres_db:5432/db
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres_db
 volumes:
   postgres_db:
     driver: local

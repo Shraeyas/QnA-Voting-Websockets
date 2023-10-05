@@ -163,3 +163,5 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+web_build

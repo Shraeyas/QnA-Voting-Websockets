@@ -5,17 +5,19 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && cp -R dist ../server/web_build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "dx": "vite"
+    "dx": "vite",
+    "prod": ""
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",
     "socket.io-client": "^4.7.2",
-    "ui": "*"
+    "ui": "*",
+    "types": "*"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

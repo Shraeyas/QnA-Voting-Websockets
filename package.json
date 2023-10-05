@@ -5,7 +5,8 @@
     "start": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "dx": "docker compose up -d && turbo dx"
+    "dx": "docker compose up -d; turbo dx",
+    "prod": "turbo run prod"
   },
   "devDependencies": {
     "eslint": "^8.48.0",

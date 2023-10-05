@@ -1,13 +1,17 @@
 import { useContext, useRef } from 'react';
 import SocketContext from '../context/SocketContext';
-function AddQuestion(props) {
+import { AddQuestionInterface } from 'types';
+
+function AddQuestion(props: AddQuestionInterface) {
     const { roomId } = props;
     const { socket } = useContext(SocketContext);
-    const questionTextRef = useRef();
-    const onSubmit = (e: any) => {
+    const questionTextRef = useRef<HTMLInputElement | null>(null);
+    const onSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        socket.emit('submitQuestion', roomId, questionTextRef.current.value);
-        questionTextRef.current.value = '';
+        if(questionTextRef.current) {
+            socket.emit('submitQuestion', roomId, questionTextRef.current.value);
+            questionTextRef.current.value = '';
+        }
     }
     return (
         <>

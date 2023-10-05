@@ -1,10 +1,8 @@
 import express from 'express';
 import prisma from './prisma';
+import path from 'path';
 
 const app = express();
-app.get("/", (req, res) => {
-    res.send("Hello, World!");
-});
 
 const server = require('http').Server(app)
 const io = require('socket.io')(server, {
@@ -13,13 +11,17 @@ const io = require('socket.io')(server, {
     }
 });
 
-
-app.get("/test-event", (req, res) => {
-    io.on('connection', (socket: any) => {
-        socket.broadcast.emit('updateQuestion', []);
-    });
-    res.send("Event Sent");
-});
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../web_build')));
+    app.get('*', (req, res) =>
+        res.sendFile(
+            path.resolve(__dirname, '../', 'web_build', 'index.html')
+        )
+    );
+}
+else {
+    app.get('/', (req, res) => res.send('Please set to production'));
+}
 
 const port = 5000;
 server.listen(port, () => {
@@ -44,7 +46,6 @@ io.on('connection', (socket: any) => {
                     ...question,
                     upvotesCount: question.upvotes.length,
                 }));
-
                 io.to(roomId).emit('updateQuestion', questionsWithUpvoteCount);
             })();
         }
@@ -84,8 +85,6 @@ io.on('connection', (socket: any) => {
     });
 
     socket.on('upvoteQuestion', (roomId: string, questionId: number, userId: string) => {
-        console.log('upvoted')
-        console.log({roomId, questionId, userId});
         (async () => {
             const upsertObject = {
                 questionId,
@@ -116,7 +115,6 @@ io.on('connection', (socket: any) => {
                 }));
 
                 io.to(roomId).emit('updateQuestion', questionsWithUpvoteCount)
-                console.log(questions);
             }
             catch(e) {
                 console.log('error', e)

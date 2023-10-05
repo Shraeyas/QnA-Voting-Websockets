@@ -4,35 +4,30 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './components/Home';
 import Room from './components/Room';
 import './App.css'
+import { QuestionsInterface } from "types";
 
-interface questionsInterface {
-  id: number,
-  text: string,
-  userId: string,
-  roomId: string,
-  upvotes: any[],
-  upvotesCount: number
-}
-
-function sortByProperty(property){  
-  return function(a, b) {
-      if(a[property] < b[property]) {
-          return 1;
-      }
-      else if(a[property] > b[property])   {
-          return -1;  
-      }
-      return 0;  
-  }  
+const sortByProperty = (property: keyof QuestionsInterface) => {
+  return (a: QuestionsInterface, b: QuestionsInterface) => {
+    if(a[property] < b[property]) {
+        return 1;
+    }
+    else if(a[property] > b[property]) {
+        return -1;  
+    }
+    return 0;  
+  }
 }
 
 const App = () => {
-  const [ questionsList, setQuestionsList ] = useState<questionsInterface[]>([]);
+  const [ questionsList, setQuestionsList ] = useState<QuestionsInterface[]>([]);
   const { socket } = useContext(SocketContext);
+
   useEffect(() => {
     if(socket) {
       socket.on('updateQuestion', (newQuestionsList) => {
-        setQuestionsList([...newQuestionsList.sort(sortByProperty("upvotesCount"))])
+        if(newQuestionsList) {
+          setQuestionsList([...newQuestionsList.sort(sortByProperty("upvotesCount"))])
+        }
       });
     }
   }, [socket]);
@@ -48,4 +43,5 @@ const App = () => {
     </>
   );
 }
+
 export default App;

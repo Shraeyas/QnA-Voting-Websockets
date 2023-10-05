@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx nodemon ./src/index.ts",
-    "dx": "npx nodemon ./src/index.ts"
+    "dx": "npx nodemon ./src/index.ts",
+    "build": "npx prisma migrate dev --name init --schema src/prisma/schema.prisma && tsc && cp -R src/prisma dist/prisma",
+    "prod": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
