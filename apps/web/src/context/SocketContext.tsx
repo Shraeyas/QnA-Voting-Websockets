@@ -2,12 +2,14 @@ import { io, Socket } from "socket.io-client";
 import { createContext, useState, useEffect } from "react";
 import { SocketContextInterface, ServerToClientEvents, ClientToServerEvents, SocketContextProviderProps } from "types";
 
-const SocketContext = createContext<SocketContextInterface>({ socket: io('http://localhost:5000')});
+
+const SocketContext = createContext<SocketContextInterface>({ socket: io(import.meta.env.VITE_SERVER_URL!)});
 
 export const SocketContextProvider: React.FC<SocketContextProviderProps> = ({ children }) => {
-    const [socket, setSocket] = useState<Socket<ServerToClientEvents, ClientToServerEvents>>(io('http://localhost:5000'));
+    console.log(import.meta.env.VITE_SERVER_URL)
+    const [socket, setSocket] = useState<Socket<ServerToClientEvents, ClientToServerEvents>>(io(import.meta.env.VITE_SERVER_URL!));
     useEffect(() => {
-        setSocket(io('http://localhost:5000'));
+        setSocket(io(import.meta.env.VITE_SERVER_URL!));
     }, []);
     return (
         <SocketContext.Provider value={{ socket }}>

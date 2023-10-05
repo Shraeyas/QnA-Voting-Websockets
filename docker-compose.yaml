@@ -18,6 +18,7 @@ services:
     environment:
       - NODE_ENV=production
       - DATABASE_URL=postgres://postgresuser:postgrespassword@postgres_db:5432/db
+      - VITE_SERVER_URL=http://localhost:5000
     ports:
       - "5000:5000"
     depends_on:
