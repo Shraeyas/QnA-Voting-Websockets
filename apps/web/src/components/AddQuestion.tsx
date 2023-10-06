@@ -8,7 +8,7 @@ function AddQuestion(props: AddQuestionInterface) {
     const questionTextRef = useRef<HTMLInputElement | null>(null);
     const onSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        if(questionTextRef.current) {
+        if(questionTextRef.current && questionTextRef.current.value && questionTextRef.current.value.length) {
             socket.emit('submitQuestion', roomId, questionTextRef.current.value);
             questionTextRef.current.value = '';
         }

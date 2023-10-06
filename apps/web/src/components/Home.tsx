@@ -7,7 +7,7 @@ export default function Home() {
 
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if(roomIdRef.current) {
+    if(roomIdRef.current && roomIdRef.current.value && roomIdRef.current.value.length) {
       navigate(`../room/${roomIdRef.current.value}`);
     }
   };
